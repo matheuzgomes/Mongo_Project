@@ -1,4 +1,4 @@
-from app import execute_webapp
+from src.app import execute_webapp
 
 
 if __name__  == "__main__":
