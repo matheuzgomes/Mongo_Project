@@ -21,7 +21,6 @@ class MongoRepository(IRepository):
         result = self.collection.insert_one(document.__dict__)
         return str(result.inserted_id)
 
-
     def counter_for_task(self) -> None:
         connection = self.db.counter_for_task
         id = connection.find_one(sort=[('_id', DESCENDING)])

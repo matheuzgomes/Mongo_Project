@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from ..services.insert_task import InsertTasksService
+from ..services.get_all_tasks import GetAllTasksService
 from ..infra.repository import MongoRepository
 from ..services.DTOs import InsertTaskRequest
 
@@ -23,4 +24,15 @@ def insert_task_controller(data: InsertTaskRequest):
 
     return data
 
+
+
+@task_route.get("/list")
+def get_all_tasks_controller():
+    try:
+        data = GetAllTasksService.get_all(MongoRepository())
+
+    except Exception as error:
+        raise Exception(error) from error
+    
+    return data
 
