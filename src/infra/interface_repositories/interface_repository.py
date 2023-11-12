@@ -1,8 +1,8 @@
 from abc import abstractmethod
 from typing import Any
-from ..domain.entities import Task
+from ...domain.entities import Task
 
-class IRepository():
+class ITaskRepository():
 
     @abstractmethod
     def find_all(self) -> Any:

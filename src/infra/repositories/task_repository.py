@@ -2,10 +2,10 @@ import os
 from pymongo import MongoClient, DESCENDING
 from dotenv import load_dotenv
 from src.domain.entities import Task
-from .interface_repository import IRepository
+from ..interface_repositories import ITaskRepository
 
 
-class MongoRepository(IRepository):
+class TaskRepository(ITaskRepository):
     def __init__(self) -> None:
         load_dotenv()
         self.client = MongoClient(os.getenv('CONNECTION_STRING'))
@@ -13,7 +13,7 @@ class MongoRepository(IRepository):
         self.collection = self.db[os.getenv('COLLECTION_NAME')]
 
     def find_all(self) -> Task:
-        return self.collection.find()
+        return self.collection.count_documents({}), self.collection.find()
 
     def insert(self, document: Task) -> None:
         document.validate_fields()
