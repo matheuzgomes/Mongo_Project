@@ -7,12 +7,13 @@ from ..services.insert_task import InsertTasksService
 from ..services.get_all_tasks import GetAllTasksService
 from ..infra.repositories import TaskRepository
 from ..services.DTOs import InsertTaskRequest
+from ..infra.db_handler import DbHandler
 
 task_route = APIRouter()
 task_router = InferringRouter()
 
 @cbv(task_router)
-class Taskontroller():
+class Taskontroller(DbHandler):
     @task_route.post("/")
     def insert_task_controller(data: InsertTaskRequest):
 
@@ -22,7 +23,7 @@ class Taskontroller():
         
 
         try:
-            data = InsertTasksService.insert_tasks(TaskRepository(), data=insert_data)
+            data = InsertTasksService.insert_tasks(TaskRepository(DbHandler()), data=insert_data)
 
 
         except Exception as error:
@@ -31,11 +32,10 @@ class Taskontroller():
         return JSONResponse(content=jsonable_encoder(data.__dict__))
 
 
-
     @task_route.get("/list")
     def get_all_tasks_controller():
         try:
-            data = GetAllTasksService.get_all(TaskRepository())
+            data = GetAllTasksService.get_all(TaskRepository(DbHandler()))
 
         except Exception as error:
             raise Exception(error) from error

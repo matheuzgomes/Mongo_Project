@@ -15,14 +15,17 @@ class InsertTasksService:
             data.task_name is None, "Task name field can't be empty"
             )
 
-        data_insert = Task(task_name=data.task_name,
-                           task_status=data.task_status,
-                           description=data.description
+        data_insert = Task(
+            task_name=data.task_name,
+            task_status=data.task_status,
+            description=data.description
         )
 
         db.insert(data_insert)
 
-        return TasksForResponse(_id = data_insert._id,
-                                task_name= data_insert.task_name,
-                                task_status= data.task_status,
-                                description= data.description)
+        return TasksForResponse(
+            _id = data_insert._id,
+            task_name= data_insert.task_name,
+            task_status= data.task_status,
+            description= data.description
+            )

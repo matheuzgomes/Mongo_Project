@@ -4,10 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .controllers import task_route
 
 
-
 @dataclass
 class SetupWebapp:
-
 
     @staticmethod
     def config_cors(app: FastAPI) -> None:

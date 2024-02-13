@@ -1,16 +1,13 @@
-import os
-from pymongo import MongoClient, DESCENDING
-from dotenv import load_dotenv
+from pymongo import DESCENDING
 from src.domain.entities import Task
 from ..interface_repositories import ITaskRepository
+from ..db_handler import DbHandler
 
 
 class TaskRepository(ITaskRepository):
-    def __init__(self) -> None:
-        load_dotenv()
-        self.client = MongoClient(os.getenv('CONNECTION_STRING'))
-        self.db = self.client[os.getenv('BANK_NAME')]
-        self.collection = self.db[os.getenv('COLLECTION_NAME')]
+    def __init__(self, db: DbHandler) -> None:
+        self.db = db.database
+        self.collection = db.collection
 
     def find_all(self) -> Task:
         return self.collection.count_documents({}), self.collection.find()
