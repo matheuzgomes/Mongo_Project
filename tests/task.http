@@ -5,12 +5,19 @@ POST {{host}}/task/ HTTP/1.1
 content-type: application/json
 
 {
-    "task_name": "teste post5",
-    "task_status": "done",
-    "description": "done"
+    "task_name": 12578,
+    "task_status": 2,
+    "description": "done",
+    "is_active" : true,
+    "user_id" : 1
 }
 ###
 
 GET {{host}}/task/list HTTP/1.1
+content-type: application/json
+###
+
+
+GET {{host}}/task/1 HTTP/1.1
 content-type: application/json
 ###

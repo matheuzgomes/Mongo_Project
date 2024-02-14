@@ -1,8 +1,8 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
-
-@dataclass
-class InsertTaskRequest:
-    task_name: str = None
-    task_status: str = None
-    description: str = None
+class InsertTaskRequest(BaseModel):
+    task_name: str
+    task_status: str 
+    description: str 
+    is_active: bool 
+    user_id: int

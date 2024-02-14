@@ -18,7 +18,9 @@ class InsertTasksService:
         data_insert = Task(
             task_name=data.task_name,
             task_status=data.task_status,
-            description=data.description
+            description=data.description,
+            is_active=data.is_active,
+            user_id=data.user_id
         )
 
         db.insert(data_insert)

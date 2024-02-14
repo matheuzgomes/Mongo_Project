@@ -11,6 +11,9 @@ class TaskRepository(ITaskRepository):
 
     def find_all(self) -> Task:
         return self.collection.count_documents({}), self.collection.find()
+    
+    def find_one(self, task_id) -> Task:
+        return self.collection.find_one({"_id": task_id})
 
     def insert(self, document: Task) -> None:
         document.validate_fields()

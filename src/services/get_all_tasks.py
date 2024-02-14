@@ -15,7 +15,7 @@ class GetAllTasksService:
             description= item['description'] if item.get('description') is not None else None
             ).__dict__ for item in data]
 
-        ServiceLayerNoneError.when(len(task_response) == 0, "No data")
+        ServiceLayerNoneError.when(task_response is None, "No data")
 
         return ListTaskResponse(
             count=count,
