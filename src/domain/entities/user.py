@@ -4,6 +4,8 @@ from dataclasses import dataclass
 @dataclass
 class User:
     _id:int = 0
+    username: str = ""
+    password : str = ""
     name:str = ""
     description:str = ""
     is_active:bool = ""

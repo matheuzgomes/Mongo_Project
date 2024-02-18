@@ -3,6 +3,8 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
+from  typing import List
+from ..services.DTOs.get_task_response import GetTaskResponse
 from ..services.insert_task import InsertTasksService
 from ..services.get_all_tasks import GetAllTasksService
 from ..services.get_task import GetTaskService
@@ -14,9 +16,14 @@ task_route = APIRouter()
 task_router = InferringRouter()
 
 @cbv(task_router)
-class Taskontroller(DbHandler):
-    @task_route.post("/")
-    def insert_task_controller(data: InsertTaskRequest):
+class Taskcontroller(DbHandler):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.db = DbHandler()
+
+    @task_router.post("/", description="Endpoint to create a new task")
+    def insert_task_controller(self, data: InsertTaskRequest):
 
         insert_data = InsertTaskRequest(
             task_name=data.task_name,
@@ -25,21 +32,22 @@ class Taskontroller(DbHandler):
             is_active=data.is_active,
             user_id=data.user_id
             )
-        
 
         try:
-            data = InsertTasksService.insert_tasks(TaskRepository(DbHandler()), data=insert_data)
-
+            data = InsertTasksService.insert_tasks(
+                TaskRepository(self.db),
+                data=insert_data
+                )
 
         except Exception as error:
             raise Exception(error)
 
         return JSONResponse(content=jsonable_encoder(data.__dict__))
 
-    @task_route.get("/list")
-    def get_all_tasks_controller():
+    @task_router.get("/list", response_model=List[GetTaskResponse])
+    def get_all_tasks_controller(self):
         try:
-            data = GetAllTasksService.get_all(TaskRepository(DbHandler()))
+            data = GetAllTasksService.get_all(TaskRepository(self.db))
 
         except Exception as error:
             raise Exception(error) from error
@@ -47,11 +55,11 @@ class Taskontroller(DbHandler):
         return JSONResponse(content=jsonable_encoder(data))
     
 
-    @task_route.get("/{id}")
-    def get_task(id:int):
+    @task_router.get("/{id}")
+    def get_task(self, id:int):
         try:
             data = GetTaskService.get(
-                repo=TaskRepository(DbHandler()),
+                repo=TaskRepository(self.db),
                 id=id
                 )
         except Exception as error:

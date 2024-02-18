@@ -16,5 +16,5 @@ class Task:
             raise TypeError(f"{self.task_status} is not an string")
         if not isinstance(self.user_id, int):
             raise TypeError("Invalid user id")
-        if len(self.description) > 500:
+        if len(self.description) > 5000:
             raise ValueError(f"{self.description} has too many characters")

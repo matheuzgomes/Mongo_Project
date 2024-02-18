@@ -16,6 +16,7 @@ class SetupWebapp:
             allow_headers=["*"],
             expose_headers=["*"]
         )
+
     @staticmethod
     def config_routes(app: FastAPI) -> None:
-        app.include_router(task_route, prefix="/task", tags="Task")
+        app.include_router(task_route, prefix="/task", tags=["Task"])
