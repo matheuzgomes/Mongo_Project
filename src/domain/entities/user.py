@@ -8,16 +8,20 @@ class User:
     password : str = ""
     name:str = ""
     description:str = ""
-    is_active:bool = ""
-    active_tasks:int = ""
-    task_limit:int = ""
+    is_active:bool = True
+    active_tasks:int = 0
+    task_limit:int = 0
 
 
-    def validate_data(self):
+    def validate_fields(self):
         if not  isinstance(self._id, int):
             raise TypeError("Invalid Id")
+        if not  isinstance(self.username, str):
+            raise TypeError("Invalid username")
+        if not  isinstance(self.password, str):
+            raise TypeError("Invalid password")
         if not isinstance(self.name, str):
-            raise TypeError(f"Invalid User Name => {self.name}")
+            raise TypeError(f"Invalid Name => {self.name}")
         if not isinstance(self.description, str):
             raise TypeError("Invalid user description")
         if not isinstance(self.is_active, bool):

@@ -1,4 +1,5 @@
 from pymongo import DESCENDING
+from typing import List
 from src.domain.entities import Task
 from ..interface_repositories import ITaskRepository
 from ..db_handler import DbHandler
@@ -9,7 +10,7 @@ class TaskRepository(ITaskRepository):
         self.db = db.database
         self.collection = db.collection
 
-    def find_all(self) -> Task:
+    def find_all(self) -> List[Task]:
         return self.collection.count_documents({}), self.collection.find()
     
     def find_one(self, task_id) -> Task:

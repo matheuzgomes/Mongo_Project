@@ -3,7 +3,7 @@ from dataclasses import dataclass
 @dataclass
 class Task:
     task_name: str
-    _id:int = 0 
+    _id:int = 0
     task_status: str = ""
     description: str = ""
     is_active:bool = True
