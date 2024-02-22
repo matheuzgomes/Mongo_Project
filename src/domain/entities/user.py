@@ -14,19 +14,15 @@ class User:
 
 
     def validate_fields(self):
-        if not  isinstance(self._id, int):
-            raise TypeError("Invalid Id")
-        if not  isinstance(self.username, str):
-            raise TypeError("Invalid username")
-        if not  isinstance(self.password, str):
-            raise TypeError("Invalid password")
-        if not isinstance(self.name, str):
-            raise TypeError(f"Invalid Name => {self.name}")
-        if not isinstance(self.description, str):
-            raise TypeError("Invalid user description")
-        if not isinstance(self.is_active, bool):
-            raise TypeError("Invalid active information")
-        if not isinstance(self.active_tasks, int):
-            raise TypeError("Invalid task number")
-        if not isinstance(self.task_limit, int):
-            raise TypeError("Invalid task limit")
+        self.validate_field_type(self._id, int, "Invalid Id")
+        self.validate_field_type(self.username, str, "Invalid username")
+        self.validate_field_type(self.password, str, "Invalid password")
+        self.validate_field_type(self.name, str, f"Invalid User Name => {self.name}")
+        self.validate_field_type(self.description, str, "Invalid user description")
+        self.validate_field_type(self.is_active, bool, "Invalid active information")
+        self.validate_field_type(self.active_tasks, int, "Invalid task number")
+        self.validate_field_type(self.task_limit, int, "Invalid task limit")
+
+    def validate_field_type(self, field, field_type, error_message):
+        if not isinstance(field, field_type):
+            raise TypeError(error_message)
