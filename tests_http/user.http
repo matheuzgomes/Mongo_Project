@@ -1,0 +1,22 @@
+@host = http://127.0.0.1:8000
+
+
+POST {{host}}/user/ HTTP/1.1
+content-type: application/json
+
+{
+    "username" : "Leandro",
+    "password" : "1234",
+    "name" : "Matheus",
+    "description" : "Primeiro User"
+}
+###
+
+GET {{host}}/user/list HTTP/1.1
+content-type: application/json
+###
+
+
+GET {{host}}/task/1 HTTP/1.1
+content-type: application/json
+###

@@ -1,1 +1,2 @@
-from .interface_repository import ITaskRepository
+from .interface_task_repository import ITaskRepository
+from .interface_user_repository import IUserRepository

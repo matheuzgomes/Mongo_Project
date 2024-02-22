@@ -10,4 +10,5 @@ def test_create_task_failed():
             description="teste",
             is_active=True,
             user_id=1,
+            tags=[1, 2]
         ).validate_fields()

@@ -19,5 +19,6 @@ class GetTaskService:
             id = get_task["_id"],
             task_name = get_task["task_name"],
             task_status = get_task["task_status"],
-            description = get_task["description"]
+            description = get_task["description"],
+            tags = get_task["tags"]
         ).__dict__

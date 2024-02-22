@@ -1,4 +1,6 @@
-from dataclasses import dataclass
+from typing import List
+from dataclasses import dataclass, field
+
 
 @dataclass
 class Task:
@@ -8,6 +10,7 @@ class Task:
     description: str = ""
     is_active:bool = True
     user_id:int = 0
+    tags: List[str] = field(default_factory=[""])
     
     def validate_fields(self):
         if not isinstance(self.task_name, str):
