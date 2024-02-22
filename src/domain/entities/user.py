@@ -12,7 +12,6 @@ class User:
     active_tasks:int = 0
     task_limit:int = 0
 
-
     def validate_fields(self):
         self.validate_field_type(self._id, int, "Invalid Id")
         self.validate_field_type(self.username, str, "Invalid username")
