@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class User:
-    id:int = 0
+    user_id:int = 0
     username: str = ""
     password : str = ""
     name:str = ""
@@ -13,7 +13,7 @@ class User:
     task_limit:int = 0
 
     def validate_fields(self):
-        self.validate_field_type(self.id, int, "Invalid Id")
+        self.validate_field_type(self.user_id, int, "Invalid Id")
         self.validate_field_type(self.username, str, "Invalid username")
         self.validate_field_type(self.password, str, "Invalid password")
         self.validate_field_type(self.name, str, f"Invalid User Name => {self.name}")

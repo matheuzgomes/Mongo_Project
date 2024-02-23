@@ -5,13 +5,13 @@ from dataclasses import dataclass, field
 @dataclass
 class Task:
     task_name: str
-    id:int = 0
+    task_id:int = 0
     task_status: str = ""
     description: str = ""
     is_active:bool = True
     user_id:int = 0
     tags: List[str] = field(default_factory=[""])
-    
+
     def validate_fields(self):
         self.validate_field_type(self.task_name, str, f"{self.task_name} is not a string")
         self.validate_field_type(self.task_status, str, f"{self.task_status} is not a string")
