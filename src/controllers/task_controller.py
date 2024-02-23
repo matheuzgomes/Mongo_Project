@@ -5,9 +5,9 @@ from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 from  typing import List
 from ..services.DTOs.get_task_response import GetTaskResponse
-from ..services.insert_task import InsertTasksService
-from ..services.get_all_tasks import GetAllTasksService
-from ..services.get_task import GetTaskService
+from ..services.task.insert_task_service import InsertTasksService
+from ..services.task.get_all_tasks_service import GetAllTasksService
+from ..services.task.get_task_service import GetTaskService
 from ..infra.repositories import TaskRepository
 from ..services.DTOs import InsertTaskRequest
 from ..infra.db_handler import DbHandler

@@ -1,7 +1,8 @@
-from ..infra.interface_repositories import IUserRepository
-from .DTOs import InsertUserRequest
-from .service_exceptions import ServiceLayerNoneError, ServiceLayerDuplicateError
-from ..domain.entities import User
+from ...infra.interface_repositories import IUserRepository
+from ..DTOs import InsertUserRequest
+from ..service_exceptions import ServiceLayerNoneError, ServiceLayerDuplicateError
+from ...domain.entities import User
+from ...utils import UserAuthentication
 
 class InsertUserService:
 
@@ -18,10 +19,11 @@ class InsertUserService:
         ServiceLayerNoneError.when(
             data.username is None, "Username field can't be empty"
             )
+        hashed_password = UserAuthentication().get_hashed_password(data.password)
 
         data_insert = User(
             username = data.username,
-            password = data.password,
+            password = hashed_password,
             name = data.name,
             description = data.description,
             is_active = True,

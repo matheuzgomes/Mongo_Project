@@ -1,6 +1,6 @@
-from ..infra.interface_repositories import ITaskRepository
-from .DTOs import TasksForResponse, ListGenericResponse
-from .service_exceptions import ServiceLayerNoneError
+from ...infra.interface_repositories import ITaskRepository
+from ..DTOs import TasksForResponse, ListGenericResponse
+from ..service_exceptions import ServiceLayerNoneError
 
 class GetAllTasksService:
 

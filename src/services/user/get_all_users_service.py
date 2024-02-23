@@ -1,6 +1,6 @@
-from ..infra.interface_repositories import IUserRepository
-from .DTOs import ListGenericResponse, GetUserResponse
-from .service_exceptions import ServiceLayerNoneError
+from ...infra.interface_repositories import IUserRepository
+from ..DTOs import ListGenericResponse, GetUserResponse
+from ..service_exceptions import ServiceLayerNoneError
 
 class GetAllUsersService:
 
@@ -11,7 +11,6 @@ class GetAllUsersService:
         user_resoonse = [GetUserResponse(
             _id = item['_id'],
             username = item['username'],
-            password = item['password'],
             name = item['name'],
             description = item['description'] if item.get('description') is not None else None,
             is_active = item['is_active'],

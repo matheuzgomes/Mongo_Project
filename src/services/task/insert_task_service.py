@@ -1,7 +1,7 @@
-from ..infra.interface_repositories import ITaskRepository
-from .DTOs import InsertTaskRequest
-from .service_exceptions import ServiceLayerNoneError
-from ..domain.entities import Task
+from ...infra.interface_repositories import ITaskRepository
+from ..DTOs import InsertTaskRequest
+from ..service_exceptions import ServiceLayerNoneError
+from ...domain.entities import Task
 
 class InsertTasksService:
 

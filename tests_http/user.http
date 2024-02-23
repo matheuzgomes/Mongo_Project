@@ -1,12 +1,12 @@
 @host = http://127.0.0.1:8000
 
 
-POST {{host}}/user/ HTTP/1.1
+POST {{host}}/user/signin HTTP/1.1
 content-type: application/json
 
 {
-    "username" : "Leandro",
-    "password" : "1234",
+    "username" : "Matheus Marinho",
+    "password" : "Nizinho@360",
     "name" : "Matheus",
     "description" : "Primeiro User"
 }

@@ -1,11 +1,16 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 from  typing import List
-from ..services.insert_user import InsertUserService
-from ..services.get_all_users import GetAllUsersService
+from ..services.user import (
+    InsertUserService,
+    GetAllUsersService,
+    GetUserForLoginService
+    )
+from .exceptions import GenericExceptionHandlerController
 from ..infra.repositories import UserRepository
 from ..services.DTOs import InsertUserRequest
 from ..services.DTOs import GetUserResponse
@@ -21,8 +26,8 @@ class Taskcontroller(DbHandler):
         super().__init__()
         self.db = DbHandler()
 
-    @user_router.post("/", description="Endpoint to create a new User")
-    def insert_task_controller(self, data: InsertUserRequest):
+    @user_router.post("/signin", description="Endpoint to create a new User")
+    def insert_user_controller(self, data: InsertUserRequest):
 
         insert_data = InsertUserRequest(
             username = data.username,
@@ -38,12 +43,12 @@ class Taskcontroller(DbHandler):
                 )
 
         except Exception as error:
-            raise Exception(error)
+            raise GenericExceptionHandlerController.execute(error) from error
 
         return ""
 
     @user_router.get("/list", response_model=List[GetUserResponse], description="Retrive all the disponible users")
-    def get_all_tasks_controller(self):
+    def get_all_users_controller(self):
         try:
             data = GetAllUsersService.get_all(UserRepository(self.db))
 
@@ -52,5 +57,17 @@ class Taskcontroller(DbHandler):
         
         return JSONResponse(content=jsonable_encoder(data))
 
+    @user_router.post('/login', summary="Create access and refresh tokens for user")
+    def login(self, form_data: OAuth2PasswordRequestForm = Depends()):
+        try:
+            data = GetUserForLoginService.user_login(
+                repo=UserRepository(self.db),
+                data=form_data
+                )
+        except Exception as error:
+            raise HTTPException(error) from error
+        
+        return JSONResponse(content=data)
+        
 
 user_route.include_router(user_router)
