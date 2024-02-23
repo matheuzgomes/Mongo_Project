@@ -12,9 +12,9 @@ class TaskRepository(ITaskRepository):
 
     def find_all(self) -> List[Task]:
         return self.collection.count_documents({}), self.collection.find()
-    
+
     def find_one(self, task_id:int) -> Task:
-        return self.collection.find_one({"_id": task_id})
+        return self.collection.find_one({"task_id": task_id})
 
     def insert(self, document: Task) -> None:
         document.validate_fields()
@@ -24,7 +24,6 @@ class TaskRepository(ITaskRepository):
 
     def counter_for_task(self) -> None:
         connection = self.db.counter_for_task
-        id = connection.find_one(sort=[('_id', DESCENDING)])
-        counter = connection.insert_one({"_id": id['_id'] + 1})
+        id = connection.find_one(sort=[('counter_id', DESCENDING)])
+        counter = connection.insert_one({"counter_id": id['counter_id'] + 1})
         return counter
- 

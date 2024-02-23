@@ -1,5 +1,6 @@
 from ...infra.interface_repositories import ITaskRepository
-from ..DTOs import TasksForResponse, ListGenericResponse
+from ..DTOs.task import TasksForResponse
+from ..DTOs import ListGenericResponse
 from ..service_exceptions import ServiceLayerNoneError
 
 class GetAllTasksService:
@@ -9,7 +10,7 @@ class GetAllTasksService:
 
         count, data = repo.find_all()
         task_response = [TasksForResponse(
-            _id = item['_id'],
+            task_id = item['task_id'],
             task_name= item['task_name'],
             task_status= item['task_status'],
             description= item['description'] if item.get('description') is not None else None,

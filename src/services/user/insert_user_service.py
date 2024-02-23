@@ -1,5 +1,5 @@
 from ...infra.interface_repositories import IUserRepository
-from ..DTOs import InsertUserRequest
+from ..DTOs.user import InsertUserRequest
 from ..service_exceptions import ServiceLayerNoneError, ServiceLayerDuplicateError
 from ...domain.entities import User
 from ...utils import UserAuthentication

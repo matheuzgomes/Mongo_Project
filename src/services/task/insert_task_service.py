@@ -1,5 +1,5 @@
 from ...infra.interface_repositories import ITaskRepository
-from ..DTOs import InsertTaskRequest
+from ..DTOs.task import InsertTaskRequest
 from ..service_exceptions import ServiceLayerNoneError
 from ...domain.entities import Task
 

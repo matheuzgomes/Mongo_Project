@@ -7,12 +7,12 @@ class ITaskRepository():
     @abstractmethod
     def find_all(self) -> Any:
         raise Exception("Not Implemented")
-    
-    @abstractmethod    
+
+    @abstractmethod
     def find_one(self, task_id:int) -> Task:
         raise Exception("Not Implemented")
 
-    
+
     @abstractmethod
     def insert(self, document: Task) -> Any:
         raise Exception("Not Implemented")

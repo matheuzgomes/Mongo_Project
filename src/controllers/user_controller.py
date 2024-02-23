@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -12,8 +12,8 @@ from ..services.user import (
     )
 from .exceptions import GenericExceptionHandlerController
 from ..infra.repositories import UserRepository
-from ..services.DTOs import InsertUserRequest
-from ..services.DTOs import GetUserResponse
+from ..services.DTOs.user import InsertUserRequest
+from ..services.DTOs.user import GetUserResponse
 from ..infra.db_handler import DbHandler
 
 user_route = APIRouter()
@@ -53,7 +53,7 @@ class Taskcontroller(DbHandler):
             data = GetAllUsersService.get_all(UserRepository(self.db))
 
         except Exception as error:
-            raise Exception(error) from error
+            raise GenericExceptionHandlerController.execute(error) from error
         
         return JSONResponse(content=jsonable_encoder(data))
 
@@ -65,7 +65,7 @@ class Taskcontroller(DbHandler):
                 data=form_data
                 )
         except Exception as error:
-            raise HTTPException(error) from error
+            raise GenericExceptionHandlerController.execute(error) from error
         
         return JSONResponse(content=data)
         

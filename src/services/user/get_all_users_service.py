@@ -1,5 +1,6 @@
 from ...infra.interface_repositories import IUserRepository
-from ..DTOs import ListGenericResponse, GetUserResponse
+from ..DTOs import ListGenericResponse
+from ..DTOs.user import GetUserResponse 
 from ..service_exceptions import ServiceLayerNoneError
 
 class GetAllUsersService:
@@ -9,7 +10,7 @@ class GetAllUsersService:
 
         count, data = repo.find_all()
         user_resoonse = [GetUserResponse(
-            _id = item['_id'],
+            user_id = item['user_id'],
             username = item['username'],
             name = item['name'],
             description = item['description'] if item.get('description') is not None else None,

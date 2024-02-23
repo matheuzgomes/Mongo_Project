@@ -2,7 +2,7 @@ from typing import Dict
 from fastapi import HTTPException, status
 from ...infra.interface_repositories import IUserRepository
 from ..service_exceptions import ServiceLayerNoneError
-from ..DTOs import GetUserForLogin
+from ..DTOs.user import GetUserForLogin
 from ...utils import UserAuthentication
 
 class GetUserForLoginService:

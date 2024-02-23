@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class GetUserResponse:
-    _id:int
+    user_id:int
     username: str
     name:str
     description:str

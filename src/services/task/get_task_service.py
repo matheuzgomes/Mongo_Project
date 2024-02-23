@@ -1,5 +1,5 @@
 from ...infra.interface_repositories import ITaskRepository
-from ..DTOs import (GetTaskResponse)
+from ..DTOs.task import (GetTaskResponse)
 from ..service_exceptions import ServiceLayerNoneError
 
 
@@ -16,7 +16,7 @@ class GetTaskService:
         )
 
         return GetTaskResponse(
-            id = get_task["_id"],
+            task_id = get_task["task_id"],
             task_name = get_task["task_name"],
             task_status = get_task["task_status"],
             description = get_task["description"],
