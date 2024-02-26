@@ -2,8 +2,8 @@
 
 # Nome do projeto
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/matheuzgomes/Mongo_Project?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/matheuzgomes/Mongo_Project?style=for-the-badge)
 
 ### Ajustes e melhorias
 
