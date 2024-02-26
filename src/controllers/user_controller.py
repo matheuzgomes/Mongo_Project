@@ -26,7 +26,7 @@ class Taskcontroller(DbHandler):
         super().__init__()
         self.db = DbHandler()
 
-    @user_router.post("/signin", description="Endpoint to create a new User")
+    @user_router.post("/register", description="Endpoint to create a new User")
     def insert_user_controller(self, data: InsertUserRequest):
 
         insert_data = InsertUserRequest(

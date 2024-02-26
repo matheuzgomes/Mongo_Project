@@ -1,10 +1,9 @@
-from typing import List
+from typing import Dict
 from dataclasses import dataclass
 
 @dataclass
 class GetTaskResponse:
-    task_id:int
+    id:int
     task_name: str
     task_status: str
-    description: str
-    tags: List[str]
+    info: Dict[str, str]

@@ -10,7 +10,7 @@ class GetAllUsersService:
 
         count, data = repo.find_all()
         user_resoonse = [GetUserResponse(
-            user_id = item['user_id'],
+            id = item['_id'],
             username = item['username'],
             name = item['name'],
             description = item['description'] if item.get('description') is not None else None,

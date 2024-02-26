@@ -10,7 +10,7 @@ class GetAllTasksService:
 
         count, data = repo.find_all()
         task_response = [TasksForResponse(
-            task_id = item['task_id'],
+            id = item['_id'],
             task_name= item['task_name'],
             task_status= item['task_status'],
             description= item['description'] if item.get('description') is not None else None,

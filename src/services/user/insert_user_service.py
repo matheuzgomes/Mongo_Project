@@ -16,9 +16,11 @@ class InsertUserService:
         ServiceLayerNoneError.when(
             data.password is None, "Password field can't be empty"
             )
+
         ServiceLayerNoneError.when(
             data.username is None, "Username field can't be empty"
             )
+
         hashed_password = UserAuthentication().get_hashed_password(data.password)
 
         data_insert = User(

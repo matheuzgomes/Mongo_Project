@@ -1,7 +1,7 @@
 from typing import Dict
 from fastapi import HTTPException, status
 from ...infra.interface_repositories import IUserRepository
-from ..service_exceptions import ServiceLayerNoneError
+from ..service_exceptions import ServiceLayerNoneError, ServiceLayerGeneralError
 from ..DTOs.user import GetUserForLogin
 from ...utils import UserAuthentication
 
@@ -21,12 +21,16 @@ class GetUserForLoginService:
 
         hashed_pass = user_data['password']
 
-        if not UserAuthentication().verify_password(data.password, hashed_pass):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Incorret username or password"
-            )
+        ServiceLayerGeneralError.when(
+            not UserAuthentication().verify_password(data.password, hashed_pass), 'Incorrect Username or Password'
+        )
+        
+        data = dict(
+            username = user_data["username"],
+            password = user_data["password"]
+        )
+
         return {
-            "access_token": UserAuthentication().create_access_token(user_data['username']),
-            "refresh_token": UserAuthentication().create_refresh_token(user_data['username'])
+            "access_token": UserAuthentication().create_access_token(data),
+            "refresh_token": UserAuthentication().create_refresh_token(data)
         }

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class TasksForResponse:
-    task_id:int
+    id:int
     task_name: str
     task_status: str
     description: str

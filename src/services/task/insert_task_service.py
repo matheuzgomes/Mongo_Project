@@ -6,7 +6,10 @@ from ...domain.entities import Task
 class InsertTasksService:
 
     @staticmethod
-    def insert_tasks(db: ITaskRepository, data:InsertTaskRequest) -> None:
+    def insert_tasks(
+        db: ITaskRepository,
+        data:InsertTaskRequest,
+        ) -> None:
 
         ServiceLayerNoneError.when(
             data.description is None, "Description field can't be empty"
@@ -26,4 +29,4 @@ class InsertTasksService:
 
         db.insert(data_insert)
 
-        return
+        return ""

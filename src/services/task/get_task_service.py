@@ -16,9 +16,11 @@ class GetTaskService:
         )
 
         return GetTaskResponse(
-            task_id = get_task["task_id"],
+            id = get_task["_id"],
             task_name = get_task["task_name"],
             task_status = get_task["task_status"],
-            description = get_task["description"],
-            tags = get_task["tags"]
-        ).__dict__
+            info= dict(
+                description = get_task["description"],
+                tags = get_task["tags"]
+                )
+                ).__dict__
