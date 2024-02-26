@@ -1,6 +1,6 @@
 # Mongo_Project
 
-# Nome do projeto
+# Hefestus
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/matheuzgomes/Mongo_Project?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/matheuzgomes/Mongo_Project?style=for-the-badge)
@@ -9,7 +9,7 @@
 
 ### Ajustes e melhorias
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
+This project it's still in development and the next updates will be:
 
 - [] Add update tasks endpoint
 - [] Automated linking Task-User
@@ -17,7 +17,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [] More Functionalities...
 
 
-## 🚀 Instalando <nome_do_projeto>
+## 🚀 Installing <Hefestus>
 
 To install <Hefestus>, follow these steps:
 
@@ -27,7 +27,7 @@ To install <Hefestus>, follow these steps:
 <create an user in /register>
 ```
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Using <Hefestus>
 
 Now, if you want to use <Hefestus>:
 
@@ -37,7 +37,7 @@ Now, if you want to use <Hefestus>:
 ```
 
 
-## 🤝 Colaboradores
+## 🤝 Collaborators
 
 It's just myself to be honest, but i liked how this part leaves the readme more attractive:
 
