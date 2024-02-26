@@ -1,5 +1,3 @@
-# Mongo_Project
-
 # Hefestus
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/matheuzgomes/Mongo_Project?style=for-the-badge)
@@ -53,3 +51,12 @@ It's just myself to be honest, but i liked how this part leaves the readme more 
     </td>
   </tr>
 </table>
+
+
+## Contact Me 📃
+
+Not a order, but if you want, feel free to do so.
+
+<a href="https://www.linkedin.com/in/matheusgomesm/">
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
+</a>
