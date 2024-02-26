@@ -4,6 +4,8 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/matheuzgomes/Mongo_Project?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/matheuzgomes/Mongo_Project?style=for-the-badge)
+![GitHub database used](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![GitHub](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
 ### Ajustes e melhorias
 
