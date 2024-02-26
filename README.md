@@ -7,7 +7,7 @@
 ![GitHub](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![GitHub database used](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-### Ajustes e melhorias
+### Future Updates
 
 This project it's still in development and the next updates will be:
 
