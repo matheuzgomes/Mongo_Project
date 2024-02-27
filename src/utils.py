@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timedelta
 from typing import Dict, Any
-from fastapi import Security, HTTPException, status, Depends
+from fastapi import HTTPException, status, Depends
 from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import ValidationError

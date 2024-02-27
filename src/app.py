@@ -22,4 +22,4 @@ def execute_webapp() -> None:
         }
 
 
-    uvicorn.run(app, host=webapp_settings.host)
+    uvicorn.run(app, host=webapp_settings.host, port=8000)

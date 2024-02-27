@@ -7,7 +7,7 @@ class WebappSettings():
     environment = ""
     version = '0.0.1'
     debug: bool = True
-    host: str = "127.0.0.1"
+    host: str = "0.0.0.0"
 
     def __init__(self):
         enviroment = os.environ.get('STAGE', "")
