@@ -30,7 +30,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 8000:8000
 
 # Run the application.
 CMD [ "python", "program.py"]

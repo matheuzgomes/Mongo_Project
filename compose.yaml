@@ -9,12 +9,29 @@
 # https://github.com/docker/awesome-compose
 version: '3.9'
 
-
 services:
-  server:
-    build: .
+  hefestus:
+    image: hefestus
+    container_name: task_manager
+    environment:
+      - CONNECTION_STRING=${CONNECTION_STRING}
+      - BANK_NAME=${BANK_NAME}
+      - STAGE=${STAGE}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_REFRESH_SECRET_KEY=${JWT_REFRESH_SECRET_KEY}
+    build:
+      context: .
     ports:
-      - 8000:8000
+      - '8000:8000'
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to

@@ -21,7 +21,7 @@ class UserRepository(IUserRepository):
 
     def insert(self, document: User) -> None:
         document.validate_fields()
-        document._id = self.counter_for_user().inserted_id
+        document._id = 1
         result = self.collection.insert_one(document.__dict__)
         return str(result.inserted_id)
 
