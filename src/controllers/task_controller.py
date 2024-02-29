@@ -34,7 +34,7 @@ class Taskcontroller(DbHandler):
 
     @task_router.post("/", description="Endpoint to create a new task")
     @benchmark
-    def insert_task_controller(self, data: InsertTaskRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
+    async def insert_task_controller(self, data: InsertTaskRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         insert_data = InsertTaskRequest(
             task_name=data.task_name,
@@ -45,7 +45,7 @@ class Taskcontroller(DbHandler):
             )
 
         try:
-            data = InsertTasksService.insert_tasks(
+            data = await InsertTasksService.insert_tasks(
                 TaskRepository(self.db),
                 data=insert_data,
                 _user_token=user_token
