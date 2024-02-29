@@ -9,9 +9,10 @@
 
 This project it's still in development and the next updates will be:
 
-- [] Add update tasks endpoint
-- [] Automated linking Task-User
+- [x] Automated linking Task-User
+- [x] Add update tasks endpoint
 - [] Verify the utility of DuckDb
+- [] Start to design and pick frontend language
 - [] More Functionalities...
 
 

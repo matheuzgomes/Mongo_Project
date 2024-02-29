@@ -6,5 +6,4 @@ class InsertTaskRequest(BaseModel):
     task_status: str 
     description: str 
     is_active: bool 
-    user_id: int
     tags: List[str] = None

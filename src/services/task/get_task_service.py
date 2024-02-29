@@ -4,19 +4,21 @@ from ..service_exceptions import ServiceLayerNoneError
 
 
 class GetTaskService:
+
     @staticmethod
-    def get(
+    async def get(
             repo:ITaskRepository,
             id:int
             ) ->  GetTaskResponse:
         
-        get_task = repo.find_one(id)
+        get_task = await repo.find_one(id)
         ServiceLayerNoneError.when(
             get_task is None, "Task not found"
         )
 
         return GetTaskResponse(
             id = get_task["_id"],
+            user_id= get_task["user_id"],
             task_name = get_task["task_name"],
             task_status = get_task["task_status"],
             info= dict(

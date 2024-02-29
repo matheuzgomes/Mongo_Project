@@ -7,7 +7,7 @@ from ...utils import UserAuthentication
 class InsertUserService:
 
     @staticmethod
-    def insert_user(db: IUserRepository, data:InsertUserRequest) -> None:
+    async def insert_user(db: IUserRepository, data:InsertUserRequest) -> None:
 
         ServiceLayerDuplicateError.when(
             db.find_one_by_name(field="username", data = data.username) is not None, "User already exists"
@@ -21,7 +21,7 @@ class InsertUserService:
             data.username is None, "Username field can't be empty"
             )
 
-        hashed_password = UserAuthentication().get_hashed_password(data.password)
+        hashed_password = await UserAuthentication().get_hashed_password(data.password)
 
         data_insert = User(
             username = data.username,

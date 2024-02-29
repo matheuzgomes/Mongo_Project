@@ -3,6 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class LoginUser:
+    user_id: int
     username: str
-    password: str
     exp: datetime

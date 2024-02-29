@@ -23,10 +23,10 @@ class UserAuthentication:
         deprecated="auto"
         )
 
-    def get_hashed_password(self, password:str) -> str:
+    async def get_hashed_password(self, password:str) -> str:
         return self.password_context.hash(password)
 
-    def verify_password(self, password: str, hashed_pass: str) -> bool:
+    async def verify_password(self, password: str, hashed_pass: str) -> bool:
         return self.password_context.verify(password, hashed_pass)
 
     def create_access_token(
@@ -68,9 +68,10 @@ class CheckCurrentUser:
             payload = jwt.decode(
                 token, JWT_SECRET_KEY, algorithms=[ALGORITHM]
             )
+
             token_data = LoginUser(
+                user_id= payload['data']['user_id'],
                 username=payload['data']['username'],
-                password=payload['data']['password'],
                 exp=payload['exp']
                 )
             

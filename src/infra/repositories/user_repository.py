@@ -1,8 +1,8 @@
-from pymongo import DESCENDING
 from typing import List
 from src.domain.entities import User
 from ..interface_repositories import IUserRepository
 from ..db_handler import DbHandler
+from .utils.counter_db import CounterDB
 
 
 class UserRepository(IUserRepository):
@@ -21,12 +21,6 @@ class UserRepository(IUserRepository):
 
     def insert(self, document: User) -> None:
         document.validate_fields()
-        document._id = 1
+        document._id = CounterDB.counter(self.db.counter_for_user).inserted_id
         result = self.collection.insert_one(document.__dict__)
         return str(result.inserted_id)
-
-    def counter_for_user(self) -> int:
-        connection = self.db.counter_for_user
-        id = connection.find_one(sort=[('_id', DESCENDING)])
-        counter = connection.insert_one({"_id": id['_id'] + 1})
-        return counter

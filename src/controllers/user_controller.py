@@ -27,7 +27,7 @@ class Taskcontroller(DbHandler):
         self.db = DbHandler()
 
     @user_router.post("/register", description="Endpoint to create a new User")
-    def insert_user_controller(self, data: InsertUserRequest):
+    async def insert_user_controller(self, data: InsertUserRequest):
 
         insert_data = InsertUserRequest(
             username = data.username,
@@ -37,7 +37,7 @@ class Taskcontroller(DbHandler):
             )
 
         try:
-            data = InsertUserService.insert_user(
+            data = await InsertUserService.insert_user(
                 UserRepository(self.db),
                 data=insert_data
                 )
@@ -58,9 +58,9 @@ class Taskcontroller(DbHandler):
         return JSONResponse(content=jsonable_encoder(data))
 
     @user_router.post('/login', summary="Create access and refresh tokens for user")
-    def login(self, form_data: OAuth2PasswordRequestForm = Depends()):
+    async def login(self, form_data: OAuth2PasswordRequestForm = Depends()):
         try:
-            data = GetUserForLoginService.user_login(
+            data = await GetUserForLoginService.user_login(
                 repo=UserRepository(self.db),
                 data=form_data
                 )
