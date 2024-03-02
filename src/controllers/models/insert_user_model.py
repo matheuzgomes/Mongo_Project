@@ -1,7 +1,8 @@
-from typing import List
 from pydantic import BaseModel
+from typing import List
 
-class  InsertUserRequest(BaseModel):
+
+class InsertUserBaseModel(BaseModel):
     username: str
     password : str
     name:str

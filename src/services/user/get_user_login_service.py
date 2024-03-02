@@ -12,7 +12,7 @@ class GetUserForLoginService:
         data: GetUserForLogin
         ) -> Dict[str, str]:
 
-        user_data = repo.find_one_by_name("username", data.username)
+        user_data = repo.find_one_generic("username", data.username)
         ServiceLayerNoneError.when(
             user_data is None, "Incorret username or password"
         )

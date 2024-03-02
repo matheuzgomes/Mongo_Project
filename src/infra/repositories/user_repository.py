@@ -16,7 +16,7 @@ class UserRepository(IUserRepository):
     def find_one_by_id(self, user_id: int) -> User:
         return self.collection.find_one({"_id": user_id})
 
-    def find_one_by_name(self, field: str, data:str) -> User:
+    def find_one_generic(self, field: str, data:str) -> User:
         return self.collection.find_one({f"{field}": data})
 
     def insert(self, document: User) -> None:

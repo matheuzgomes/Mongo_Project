@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from ...services.service_exceptions import (
 ServiceLayerDuplicateError,
 ServiceLayerNoneError,
-ServiceLayerGeneralError
+ServiceLayerGeneralError,
+ServiceLayerPermissionError
 )
 
 class GenericExceptionHandlerController:
@@ -20,4 +21,7 @@ class GenericExceptionHandlerController:
         
         if isinstance(ex, ServiceLayerGeneralError):
             raise HTTPException(detail=str(ex), status_code=status.HTTP_400_BAD_REQUEST)
+        
+        if isinstance(ex, ServiceLayerPermissionError):
+            raise HTTPException(detail=str(ex), status_code=status.HTTP_403_FORBIDDEN)
         

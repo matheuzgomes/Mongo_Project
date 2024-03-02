@@ -1,3 +1,4 @@
+from typing import List
 from dataclasses import dataclass
 
 
@@ -11,6 +12,7 @@ class User:
     is_active:bool = True
     active_tasks:int = 0
     task_limit:int = 0
+    scopes:List[str] = None
 
     def validate_fields(self):
         self.validate_field_type(self._id, int, "Invalid Id")

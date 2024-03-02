@@ -10,7 +10,7 @@ class InsertUserService:
     async def insert_user(db: IUserRepository, data:InsertUserRequest) -> None:
 
         ServiceLayerDuplicateError.when(
-            db.find_one_by_name(field="username", data = data.username) is not None, "User already exists"
+            db.find_one_generic(field="username", data = data.username) is not None, "User already exists"
         )
 
         ServiceLayerNoneError.when(
@@ -29,7 +29,8 @@ class InsertUserService:
             name = data.name,
             description = data.description,
             is_active = True,
-            task_limit = 10
+            task_limit = 10,
+            scopes=data.scopes
         )
 
         db.insert(data_insert)

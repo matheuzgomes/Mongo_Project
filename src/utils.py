@@ -68,7 +68,6 @@ class CheckCurrentUser:
             payload = jwt.decode(
                 token, JWT_SECRET_KEY, algorithms=[ALGORITHM]
             )
-
             token_data = LoginUser(
                 user_id= payload['data']['user_id'],
                 username=payload['data']['username'],
@@ -81,6 +80,7 @@ class CheckCurrentUser:
                     detail="Token expired",
                     headers={"WWW-Authenticate": "Bearer"},
                 )
+
         except(JWTError, ValidationError):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,

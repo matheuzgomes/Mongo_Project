@@ -15,6 +15,8 @@ from ..infra.repositories import UserRepository
 from ..services.DTOs.user import InsertUserRequest
 from ..services.DTOs.user import GetUserResponse
 from ..infra.db_handler import DbHandler
+from .models import InsertUserBaseModel
+from ..utils import CheckCurrentUser
 
 user_route = APIRouter()
 user_router = InferringRouter()
@@ -27,13 +29,14 @@ class Taskcontroller(DbHandler):
         self.db = DbHandler()
 
     @user_router.post("/register", description="Endpoint to create a new User")
-    async def insert_user_controller(self, data: InsertUserRequest):
+    async def insert_user_controller(self, data: InsertUserBaseModel):
 
         insert_data = InsertUserRequest(
             username = data.username,
             password = data.password,
             name = data.name,
             description = data.description,
+            scopes=data.scopes
             )
 
         try:
@@ -48,9 +51,12 @@ class Taskcontroller(DbHandler):
         return ""
 
     @user_router.get("/list", response_model=List[GetUserResponse], description="Retrive all the disponible users")
-    def get_all_users_controller(self):
+    def get_all_users_controller(self, user_token = Depends(CheckCurrentUser.get_current_user)):
         try:
-            data = GetAllUsersService.get_all(UserRepository(self.db))
+            data = GetAllUsersService.get_all(
+                UserRepository(self.db),
+                user_token
+                )
 
         except Exception as error:
             raise GenericExceptionHandlerController.execute(error) from error
