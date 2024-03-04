@@ -9,15 +9,17 @@ from ..services.DTOs.task import (
     GetTaskResponse,
     DeleteDocumentRequest,
     DeleteDocumentCountResponse,
-    InsertTaskRequest
+    InsertTaskRequest,
+    UpdateTaskRequest
 )
 from ..services.task import (
     InsertTasksService,
     GetAllTasksService,
     GetTaskService,
-    DeleteTaskService
+    DeleteTaskService,
+    UpdateTaskService
 )
-from ..infra.repositories import TaskRepository
+from ..infra.repositories import TaskRepository, UserRepository
 from ..infra.db_handler import DbHandler
 from .exceptions import GenericExceptionHandlerController
 from ..utils import CheckCurrentUser
@@ -46,7 +48,8 @@ class Taskcontroller(DbHandler):
 
         try:
             data = await InsertTasksService.insert_tasks(
-                TaskRepository(self.db),
+                repo=TaskRepository(self.db),
+                user_repo=UserRepository(self.db),
                 data=insert_data,
                 _user_token=user_token
                 )
@@ -60,11 +63,15 @@ class Taskcontroller(DbHandler):
     async def get_all_tasks_controller(self, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         try:
-            data = await GetAllTasksService.get_all(TaskRepository(self.db))
+            data = await GetAllTasksService.get_all(
+                repo=TaskRepository(self.db),
+                user_repo=UserRepository(self.db),
+                _user_token=user_token
+                )
 
         except Exception as error:
             raise GenericExceptionHandlerController.execute(error) from error
-        
+
         return JSONResponse(content=jsonable_encoder(data))
 
     @task_router.get("/{id}")
@@ -73,26 +80,51 @@ class Taskcontroller(DbHandler):
         try:
             data = await GetTaskService.get(
                 repo=TaskRepository(self.db),
-                id=id
+                id=id,
+                user_repo=UserRepository(self.db),
+                _user_token=user_token
                 )
         except Exception as error:
             raise GenericExceptionHandlerController.execute(error) from error
-        
+
         return JSONResponse(content=jsonable_encoder(data))
-    
+
+
+    @task_router.put("/{id}/update", response_model=DeleteDocumentCountResponse)
+    @benchmark
+    async def update_task(self, id:int, update_data:UpdateTaskRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
+
+        try:
+            await UpdateTaskService.update(
+                repo=TaskRepository(self.db),
+                user_repo=UserRepository(self.db),
+                data = update_data,
+                _user_token=user_token,
+                task_id=id
+                )
+
+        except Exception as error:
+            raise GenericExceptionHandlerController.execute(error) from error
+
+        return JSONResponse(content="Task Update Succesfully")
+
     @task_router.delete("/", response_model=DeleteDocumentCountResponse)
     async def delete_task(self, delete_data:DeleteDocumentRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         try:
             data = await DeleteTaskService.delete(
                 repo=TaskRepository(self.db),
+                user_repo=UserRepository(self.db),
+                _user_token=user_token,
                 id=delete_data.id,
                 batch_delete=delete_data.batch_delete
                 )
 
         except Exception as error:
             raise GenericExceptionHandlerController.execute(error) from error
-        
+
         return JSONResponse(content=jsonable_encoder(data))
+    
+
 
 task_route.include_router(task_router)

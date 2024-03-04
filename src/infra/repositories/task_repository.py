@@ -23,10 +23,12 @@ class TaskRepository(ITaskRepository):
         self.collection.insert_one(document.__dict__)
         return
     
+    async def update(self, query_find: Dict[str, Any], query_update: Dict[str, Any]):
+        return self.collection.update_one(query_find, query_update)
+
     async def delete(self, id:int = None, batch_delete: Dict[str, Any] = None) -> int:
-        
         NotFoundException.when(id is None and batch_delete is None, "Not found any document")
-        
+
         if id:
             return self.collection.delete_one({"_id": id}).deleted_count
 
