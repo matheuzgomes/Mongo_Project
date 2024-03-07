@@ -5,11 +5,11 @@ from ...domain.entities import Task
 class ITaskRepository():
 
     @abstractmethod
-    async def find_all(self) -> Any:
+    async def find_all_by_user_id(self, user_id:int) -> Any:
         raise Exception("Not Implemented")
 
     @abstractmethod
-    async def find_one(self, task_id:int) -> Task:
+    async def find_one_by_id(self, task_id:int, user_id:int) -> Task:
         raise Exception("Not Implemented")
 
     @abstractmethod

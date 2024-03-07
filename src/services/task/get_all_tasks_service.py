@@ -13,7 +13,7 @@ class GetAllTasksService:
         _user_token: LoginUser
         ) -> TasksForResponse:
 
-        count, data = await repo.find_all()
+        count, data = await repo.find_all_by_user_id(_user_token.user_id)
 
         check_permission = user_repo.find_one_by_id(_user_token.user_id)
         ServiceLayerPermissionError.when(

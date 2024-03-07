@@ -14,8 +14,8 @@ This project it's still in development and the next updates will be:
 - [x] Automated linking Task-User
 - [x] Add update tasks endpoint
 - [x] Finish Role permissioning Logic
-- [] Add functionalities as, user can only view tasks that contais his user_id
-- [] Add functionalities as, user can only delete tasks that contains his user_id
+- [x] Add functionalities as, user can only view tasks that contais his user_id
+- [x] Add functionalities as, user can only delete tasks that contains his user_id
 - [] Add more verifications like can't insert two tasks with same name and description
 - [] Create end-to-end tests
 - [] Verify the utility of DuckDb

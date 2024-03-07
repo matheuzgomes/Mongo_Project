@@ -11,11 +11,15 @@ class TaskRepository(ITaskRepository):
         self.db = db.database
         self.collection = self.db.Task
 
-    async def find_all(self) -> List[Task]:
-        return self.collection.count_documents({}), self.collection.find()
+    async def find_all_by_user_id(self, user_id:int) -> List[Task]:
+        return self.collection.count_documents({}), self.collection.find({"user_id": user_id})
 
-    async def find_one(self, task_id:int) -> Task:
-        return self.collection.find_one({"_id": task_id})
+    async def find_one_by_id(self, task_id:int, user_id:int) -> Task:
+        return self.collection.find_one(
+            {"$and":[
+                {"_id": task_id},
+                {"user_id": user_id}
+                ]})
 
     async def insert(self, document: Task) -> None:
         document.validate_fields()

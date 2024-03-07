@@ -15,15 +15,15 @@ class GetTaskService:
             _user_token: LoginUser
             ) ->  GetTaskResponse:
 
-        get_task = await repo.find_one(id)
-        ServiceLayerNoneError.when(
-            get_task is None, "Task not found"
-        )
-
         check_permission = user_repo.find_one_by_id(_user_token.user_id)
         ServiceLayerPermissionError.when(
             any(element in PermissionEnum.RESPONSABILITY_CHAIN for element in check_permission['scopes']), "You don't have the permission to continue with this action."
             )
+
+        get_task = await repo.find_one_by_id(task_id=id, user_id=_user_token.user_id)
+        ServiceLayerNoneError.when(
+            get_task is None, "Task not found"
+        )
 
         return GetTaskResponse(
             id = get_task["_id"],
