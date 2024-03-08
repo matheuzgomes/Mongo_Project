@@ -21,12 +21,15 @@ class TaskRepository(ITaskRepository):
                 {"user_id": user_id}
                 ]})
 
+    async def find_one_by_generic_string_field(self, search_field: str, value_searched:str) -> Task:
+        return self.collection.find_one({f"{search_field}": f"{value_searched}"})
+
     async def insert(self, document: Task) -> None:
         document.validate_fields()
         document._id = CounterDB.counter(self.db.counter_for_task).inserted_id
         self.collection.insert_one(document.__dict__)
         return
-    
+
     async def update(self, query_find: Dict[str, Any], query_update: Dict[str, Any]):
         return self.collection.update_one(query_find, query_update)
 

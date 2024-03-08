@@ -39,6 +39,4 @@ class DeleteTaskService:
                 get_task == 0, "Task not found"
             )
 
-
-
         return DeleteDocumentCountResponse(count_deleted_tasks=get_task)

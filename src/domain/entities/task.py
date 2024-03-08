@@ -1,4 +1,5 @@
 from typing import List
+from datetime import datetime
 from dataclasses import dataclass, field
 
 
@@ -10,6 +11,8 @@ class Task:
     description: str = ""
     is_active:bool = True
     user_id:int = 0
+    created_at: datetime = None
+    updated_at: datetime = None
     tags: List[str] = field(default_factory=[""])
 
     def validate_fields(self):

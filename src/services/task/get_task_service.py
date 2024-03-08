@@ -30,6 +30,7 @@ class GetTaskService:
             user_id= get_task["user_id"],
             task_name = get_task["task_name"],
             task_status = get_task["task_status"],
+            created_at= get_task["created_at"],
             info= dict(
                 description = get_task["description"],
                 tags = get_task["tags"]

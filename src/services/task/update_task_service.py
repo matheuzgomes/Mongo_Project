@@ -1,3 +1,4 @@
+from datetime import datetime
 from ...infra.interface_repositories import ITaskRepository, IUserRepository
 from ..DTOs.task import UpdateTaskRequest
 from ..DTOs import LoginUser
@@ -15,8 +16,10 @@ class UpdateTaskService():
             _user_token: LoginUser,
             user_repo: IUserRepository,
             ) -> None:
+
         user_id = _user_token.user_id
-        get_task = repo.find_one_by_id(task_id=task_id, user_id=user_id)
+
+        get_task = await repo.find_one_by_id(task_id=task_id, user_id=user_id)
         ServiceLayerNoneError.when(
             get_task is None, "Task not Found"
         )
@@ -26,7 +29,10 @@ class UpdateTaskService():
             any(element in PermissionEnum.RESPONSABILITY_CHAIN for element in check_permission['scopes']), "You don't have the permission to continue with this action."
             )
 
-        update = {"$set" : data.__dict__}
+        update_data = data.__dict__
+        update_data["updated_at"] = datetime.utcnow()
+
+        update = {"$set" : update_data}
         await repo.update({"_id": task_id}, update)
 
         return ""

@@ -25,6 +25,8 @@ class GetAllTasksService:
             user_id = item['user_id'],
             task_name= item['task_name'],
             task_status= item['task_status'],
+            created_at= item["created_at"],
+            updated_at= item["updated_at"],
             info = dict(
                 description= item['description'] if item.get('description') is not None else None,
                 tags= item['tags'] if item.get('tags') is not None else None

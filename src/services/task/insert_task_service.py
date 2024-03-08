@@ -1,7 +1,12 @@
+from datetime import datetime
 from ...infra.interface_repositories import ITaskRepository, IUserRepository
 from ..DTOs.task import InsertTaskRequest
 from ..DTOs import LoginUser
-from ..service_exceptions import ServiceLayerNoneError, ServiceLayerPermissionError
+from ..service_exceptions import (
+    ServiceLayerNoneError,
+    ServiceLayerPermissionError,
+    ServiceLayerDuplicateError
+)
 from ...domain.entities import Task
 from ..service_enums import PermissionEnum
 
@@ -21,6 +26,11 @@ class InsertTasksService:
         ServiceLayerNoneError.when(
             data.task_name is None, "Task name field can't be empty"
             )
+        
+        find_task = repo.find_one_by_generic_string_field("task_name", data.task_name)
+        ServiceLayerDuplicateError.when(
+            find_task is not None, "Task Already Exists"
+        )
 
         check_permission = user_repo.find_one_by_id(_user_token.user_id)
         ServiceLayerPermissionError.when(
@@ -33,7 +43,8 @@ class InsertTasksService:
             description=data.description,
             is_active=data.is_active,
             user_id=_user_token.user_id,
-            tags=data.tags
+            tags=data.tags,
+            created_at=datetime.utcnow()
         )
 
         await repo.insert(data_insert)

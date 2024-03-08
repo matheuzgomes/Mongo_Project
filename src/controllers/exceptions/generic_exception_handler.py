@@ -6,22 +6,17 @@ ServiceLayerGeneralError,
 ServiceLayerPermissionError
 )
 
+exceptions_case = {
+    ServiceLayerDuplicateError: status.HTTP_400_BAD_REQUEST,
+    ServiceLayerNoneError: status.HTTP_404_NOT_FOUND,
+    ServiceLayerGeneralError: status.HTTP_400_BAD_REQUEST,
+    ServiceLayerPermissionError: status.HTTP_403_FORBIDDEN,
+}
+
 class GenericExceptionHandlerController:
 
     @staticmethod
-    def execute(ex: Exception):
-        if isinstance(ex, ServiceLayerDuplicateError):
-            raise HTTPException(detail=str(ex), status_code=status.HTTP_400_BAD_REQUEST)
-        
-        if isinstance(ex, ServiceLayerNoneError):
-            raise HTTPException(detail=str(ex), status_code=status.HTTP_404_NOT_FOUND)
-
-        if isinstance(ex, (KeyError, AttributeError, TypeError)):
-            raise HTTPException(detail=str(ex), status_code=status.HTTP_400_BAD_REQUEST)
-        
-        if isinstance(ex, ServiceLayerGeneralError):
-            raise HTTPException(detail=str(ex), status_code=status.HTTP_400_BAD_REQUEST)
-        
-        if isinstance(ex, ServiceLayerPermissionError):
-            raise HTTPException(detail=str(ex), status_code=status.HTTP_403_FORBIDDEN)
-        
+    def execute(ex):
+        status_code = exceptions_case.get(type(ex))
+        if status_code:
+            raise HTTPException(detail=str(ex), status_code=status_code)
