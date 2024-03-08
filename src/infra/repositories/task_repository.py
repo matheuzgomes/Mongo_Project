@@ -22,7 +22,8 @@ class TaskRepository(ITaskRepository):
                 ]})
 
     async def find_one_by_generic_string_field(self, search_field: str, value_searched:str) -> Task:
-        return self.collection.find_one({f"{search_field}": f"{value_searched}"})
+        data = self.collection.find_one({f"{search_field}": f"{value_searched}"})
+        return data
 
     async def insert(self, document: Task) -> None:
         document.validate_fields()

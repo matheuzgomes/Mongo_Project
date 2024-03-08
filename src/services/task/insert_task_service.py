@@ -27,7 +27,7 @@ class InsertTasksService:
             data.task_name is None, "Task name field can't be empty"
             )
         
-        find_task = repo.find_one_by_generic_string_field("task_name", data.task_name)
+        find_task = await repo.find_one_by_generic_string_field("task_name", data.task_name)
         ServiceLayerDuplicateError.when(
             find_task is not None, "Task Already Exists"
         )

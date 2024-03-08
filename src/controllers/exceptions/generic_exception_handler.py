@@ -1,4 +1,5 @@
 from fastapi import HTTPException, status
+from pymongo.errors import OperationFailure
 from ...services.service_exceptions import (
 ServiceLayerDuplicateError,
 ServiceLayerNoneError,
@@ -11,6 +12,7 @@ exceptions_case = {
     ServiceLayerNoneError: status.HTTP_404_NOT_FOUND,
     ServiceLayerGeneralError: status.HTTP_400_BAD_REQUEST,
     ServiceLayerPermissionError: status.HTTP_403_FORBIDDEN,
+    OperationFailure: status.HTTP_400_BAD_REQUEST
 }
 
 class GenericExceptionHandlerController:

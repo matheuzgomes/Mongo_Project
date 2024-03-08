@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 from  typing import List
-from .utils import benchmark
+from .utils import benchmark, log_factory
 from ..services.DTOs.task import (
     GetTaskResponse,
     DeleteDocumentRequest,
@@ -36,6 +36,7 @@ class Taskcontroller(DbHandler):
 
     @task_router.post("/", description="Endpoint to create a new task")
     @benchmark
+    @log_factory(db_handler=DbHandler())
     async def insert_task_controller(self, data: InsertTaskRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         insert_data = InsertTaskRequest(
@@ -60,6 +61,7 @@ class Taskcontroller(DbHandler):
         return ""
 
     @task_router.get("/list", response_model=List[GetTaskResponse])
+    @log_factory(db_handler=DbHandler())
     async def get_all_tasks_controller(self, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         try:
@@ -75,6 +77,7 @@ class Taskcontroller(DbHandler):
         return JSONResponse(content=jsonable_encoder(data))
 
     @task_router.get("/{id}")
+    @log_factory(db_handler=DbHandler())
     async def get_task(self, id:int, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         try:
@@ -92,6 +95,7 @@ class Taskcontroller(DbHandler):
 
     @task_router.put("/{id}/update", response_model=DeleteDocumentCountResponse)
     @benchmark
+    @log_factory(db_handler=DbHandler())
     async def update_task(self, id:int, update_data:UpdateTaskRequest, user_token = Depends(CheckCurrentUser.get_current_user)):
 
         try:

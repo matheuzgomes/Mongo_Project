@@ -17,7 +17,7 @@ This project it's still in development and the next updates will be:
 - [x] Add functionalities as, user can only view tasks that contais his user_id
 - [x] Add functionalities as, user can only delete tasks that contains his user_id
 - [x] Add more verifications like can't insert two tasks with same name and description
-- [] Add a Log System
+- [x] Add a Log System
 - [] Create end-to-end tests
 - [] Verify the utility of DuckDb
 - [] Start to design and pick frontend language
