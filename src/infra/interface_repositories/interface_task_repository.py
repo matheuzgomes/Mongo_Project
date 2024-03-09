@@ -13,7 +13,7 @@ class ITaskRepository():
         raise Exception("Not Implemented")
 
     @abstractmethod
-    async def find_one_by_generic_string_field(self, search_field: str, value_searched:str) -> Task:
+    async def find_one_by_generic_string_field(self, search_field: str, user_id:int, value_searched:str) -> Task:
         raise Exception("Not Implemented")
 
     @abstractmethod

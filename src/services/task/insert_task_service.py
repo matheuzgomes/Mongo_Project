@@ -27,7 +27,11 @@ class InsertTasksService:
             data.task_name is None, "Task name field can't be empty"
             )
         
-        find_task = await repo.find_one_by_generic_string_field("task_name", data.task_name)
+        find_task = await repo.find_one_by_generic_string_field(
+            search_field="task_name",
+            value_searched=data.task_name,
+            user_id=_user_token.user_id
+            )
         ServiceLayerDuplicateError.when(
             find_task is not None, "Task Already Exists"
         )
@@ -36,7 +40,7 @@ class InsertTasksService:
         ServiceLayerPermissionError.when(
             any(element in PermissionEnum.RESPONSABILITY_CHAIN for element in check_permission['scopes']), "You don't have the permission to continue with this action."
             )
-
+        
         data_insert = Task(
             task_name=data.task_name,
             task_status=data.task_status,

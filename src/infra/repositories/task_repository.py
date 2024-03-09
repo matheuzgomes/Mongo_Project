@@ -21,8 +21,12 @@ class TaskRepository(ITaskRepository):
                 {"user_id": user_id}
                 ]})
 
-    async def find_one_by_generic_string_field(self, search_field: str, value_searched:str) -> Task:
-        data = self.collection.find_one({f"{search_field}": f"{value_searched}"})
+    async def find_one_by_generic_string_field(self, search_field: str, value_searched:str, user_id: int) -> Task:
+        data = self.collection.find_one(
+            {"$and":[
+                {f"{search_field}": f"{value_searched}"},
+                {"user_id": user_id}
+                ]})
         return data
 
     async def insert(self, document: Task) -> None:
