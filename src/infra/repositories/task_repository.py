@@ -45,5 +45,5 @@ class TaskRepository(ITaskRepository):
             return self.collection.delete_one({"_id": id}).deleted_count
 
         elif batch_delete:
-            for document in batch_delete.items():
-                return self.collection.delete_many({f"{document[0]}": document[1]}).deleted_count
+            for key, value in batch_delete.items():
+                return self.collection.delete_many({f"{key[0]}": value[1]}).deleted_count

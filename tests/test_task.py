@@ -31,10 +31,12 @@ test_task_3 = Task(
             task_status="teste_status",
             description="teste",
             is_active=True,
-            user_id=1,
+            user_id=7,
             created_at=datetime.utcnow(),
             updated_at=datetime.utcnow(),
             tags=[1, 2])
+
+
 
 @pytest.mark.parametrize(
         "task, expectation, message",[
@@ -49,6 +51,7 @@ def test_create_task(task: Task, expectation, message):
         task.validate_fields()
     assert message is None or message in str(e)
 
+
 @pytest.mark.parametrize(
         "user_id", [
             (7)
@@ -58,6 +61,7 @@ def test_create_task(task: Task, expectation, message):
 async def test_get_all_tasks_repository(user_id:int, repo = TaskRepository):
     _, get_tasks = await repo(DbHandler()).find_all_by_user_id(user_id=user_id)
     assert [item['user_id'] == user_id for item in get_tasks]
+
 
 
 @pytest.mark.parametrize(
@@ -92,3 +96,27 @@ async def test_get_task_by_generic_str_field(
         )
 
     assert get_task["user_id"] == user_id and get_task["task_name"] == value_searched
+
+
+@pytest.mark.parametrize(
+        "task, search_field, value_searched, user_id", [
+            (test_task_3, "task_name", "Successfull task creation", 7)
+        ]
+)
+@pytest.mark.asyncio
+async def test_insert_task(
+        task: Task,
+        search_field: str,
+        value_searched: str,
+        user_id: int,
+        repo = TaskRepository
+        ):
+    
+    await repo(DbHandler()).insert(task)
+
+    get_inserted_task = await repo(DbHandler()).find_one_by_generic_string_field(
+        search_field=search_field,
+        user_id=user_id,
+        value_searched=value_searched
+        )
+    assert value_searched == get_inserted_task[search_field]

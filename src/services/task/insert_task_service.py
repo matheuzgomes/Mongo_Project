@@ -23,6 +23,7 @@ class InsertTasksService:
         ServiceLayerNoneError.when(
             data.description is None, "Description field can't be empty"
             )
+
         ServiceLayerNoneError.when(
             data.task_name is None, "Task name field can't be empty"
             )
@@ -32,6 +33,7 @@ class InsertTasksService:
             value_searched=data.task_name,
             user_id=_user_token.user_id
             )
+
         ServiceLayerDuplicateError.when(
             find_task is not None, "Task Already Exists"
         )
