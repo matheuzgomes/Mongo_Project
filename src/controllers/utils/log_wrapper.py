@@ -1,5 +1,5 @@
 from typing import Any
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import wraps
 from ...infra.repositories import LogRepository
 from ...domain.entities import Log
@@ -17,7 +17,7 @@ def log_factory(db_handler: Any):
                 result = await func(*args, **kwargs)
                 await repo.insert(Log(
                     user_id= kwargs['user_token'].user_id,
-                    log_date= datetime.utcnow(),
+                    log_date= datetime.now(timezone.utc),
                     function_name= func.__qualname__,
                     is_success= True
                 ))
@@ -27,7 +27,7 @@ def log_factory(db_handler: Any):
                 await repo.insert(
                     Log(
                         user_id= kwargs['user_token'].user_id,
-                        log_date= datetime.utcnow(),
+                        log_date= datetime.now(timezone.utc),
                         function_name= func.__qualname__,
                         is_success= False,
                         error_description= {
