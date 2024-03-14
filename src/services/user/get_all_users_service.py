@@ -12,9 +12,12 @@ class GetAllUsersService:
         _user_token: LoginUser
         ) -> ListGenericResponse:
 
+        teste = PermissionEnum.ADMIN.value
+
+        print(type(teste))
         check_permission = repo.find_one_by_id(_user_token.user_id)
         ServiceLayerPermissionError.when(
-            PermissionEnum.ADMIN not in check_permission['scopes'], "You don't have the permission to continue with this action."
+            PermissionEnum.ADMIN in check_permission['scopes'], "You don't have the permission to continue with this action."
             )
 
         count, data = repo.find_all()
