@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Any
 from fastapi import HTTPException, status, Depends
 from jose import jwt, JWTError
@@ -34,9 +34,9 @@ class UserAuthentication:
             ) -> str:
 
         if expires_delta is not None:
-            expires_delta = datetime.utcnow() + expires_delta
+            expires_delta = datetime.now(timezone.utc) + expires_delta
         else:
-            expires_delta = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            expires_delta = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 
         to_encode = {"data": subject, "exp": expires_delta}
         encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, ALGORITHM)
@@ -47,9 +47,9 @@ class UserAuthentication:
             ) -> str:
 
         if expires_delta is not None:
-            expires_delta = datetime.utcnow() + expires_delta
+            expires_delta = datetime.now(timezone.utc) + expires_delta
         else:
-            expires_delta = datetime.utcnow() + timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES)
+            expires_delta = datetime.now(timezone.utc) + timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES)
 
         to_encode = {"data": subject, "exp": expires_delta}
         encoded_jwt = jwt.encode(to_encode, JWT_REFRESH_SECRET_KEY, ALGORITHM)
