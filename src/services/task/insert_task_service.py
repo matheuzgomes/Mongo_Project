@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from ...infra.interface_repositories import ITaskRepository, IUserRepository
 from ..DTOs.task import InsertTaskRequest
 from ..DTOs import LoginUser
@@ -50,7 +50,7 @@ class InsertTasksService:
             is_active=data.is_active,
             user_id=_user_token.user_id,
             tags=data.tags,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
 
         await repo.insert(data_insert)

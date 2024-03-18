@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from ...infra.interface_repositories import ITaskRepository, IUserRepository
 from ..DTOs.task import UpdateTaskRequest
 from ..DTOs import LoginUser
@@ -30,7 +30,7 @@ class UpdateTaskService():
             )
 
         update_data = data.__dict__
-        update_data["updated_at"] = datetime.utcnow()
+        update_data["updated_at"] = datetime.now(timezone.utc)
 
         update = {"$set" : update_data}
         await repo.update({"_id": task_id}, update)

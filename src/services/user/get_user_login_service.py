@@ -1,6 +1,6 @@
 from typing import Dict
 from ...infra.interface_repositories import IUserRepository
-from ..service_exceptions import ServiceLayerNoneError, ServiceLayerGeneralError, ServiceLayerPermissionError
+from ..service_exceptions import ServiceLayerNoneError, ServiceLayerGeneralError
 from ..DTOs.user import GetUserForLogin
 from ...utils import UserAuthentication
 
