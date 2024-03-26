@@ -1,13 +1,13 @@
 from typing import Any
 from datetime import datetime, timezone
 from functools import wraps
-from ...infra.repositories import LogRepository
+from ...infra.interface_repositories import ILogRepository
 from ...domain.entities import Log
 
 def log_factory(db_handler: Any):
 
     def logging(func):
-        repo = LogRepository(db_handler)
+        repo = ILogRepository(db_handler)
 
         @wraps(func)
         async def wrapper(*args, **kwargs):
