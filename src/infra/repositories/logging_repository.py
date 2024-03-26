@@ -1,10 +1,10 @@
 from src.domain.entities import Log
-from ..interface_repositories import ITaskRepository
+from ..interface_repositories import ILogRepository
 from ..db_handler import DbHandler
 from .utils.counter_db import CounterDB
 
 
-class LogRepository(ITaskRepository):
+class LogRepository(ILogRepository):
     def __init__(self, db: DbHandler) -> None:
         self.db = db.database
         self.collection = self.db.logs
