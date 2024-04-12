@@ -18,9 +18,6 @@ This project it's still in development and the next updates will be:
 - [x] Add functionalities as, user can only delete tasks that contains his user_id
 - [x] Add more verifications like can't insert two tasks with same name and description
 - [x] Add a Log System
-- [] Start to design and pick frontend language
-- [] More Functionalities...
-
 
 ## 🚀 Installing <Hefestus>
 
