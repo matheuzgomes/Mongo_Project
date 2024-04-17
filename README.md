@@ -41,7 +41,7 @@ Now, if you want to use <Hefestus>:
 
 ## 🤝 Collaborators
 
-It's just myself to be honest, but i liked how this part leaves the readme more attractive:
+It's just me to be honest, but i liked how this part leaves the readme more attractive:
 
 <table>
   <tr>
